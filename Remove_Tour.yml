@@ -1,0 +1,9 @@
+---
+- name: Remove the Welcome Tour
+  hosts: rhel10
+  become: true
+  tasks:
+    - name: remove gnome-tour package
+      ansible.builtin.dnf:
+        name: gnome-tour
+        state: absent
