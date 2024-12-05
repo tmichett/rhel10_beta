@@ -1,0 +1,21 @@
+---
+- name: Remove all background images
+  hosts: rhel10
+  become: true
+  tasks:
+
+    - name: Copy Background Image
+      ansible.builtin.copy:
+        src: files/background.png
+        dest: /usr/share/backgrounds/background.png
+
+    - name: Create GDM Conf.D Directory
+      ansible.builtin.file:
+        path: /etc/dconf/db/gdm.d/
+        state: directory
+        mode: '0755'
+
+    - name: Copy Gnome Settings
+      ansible.builtin.copy:
+        src: files/01-background
+        dest: /etc/dconf/db/gdm.d/01-background
