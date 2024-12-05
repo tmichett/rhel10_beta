@@ -1,0 +1,17 @@
+---
+- name: Remove all background images
+  hosts: rhel10
+  become: true
+  tasks:
+
+    - name: index background imagese
+      ansible.builtin.find:
+        paths: /usr/share/backgrounds
+        patterns: "*"
+      register: delete_me
+
+    - name: remove background imagese
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ delete_me.files }}"
