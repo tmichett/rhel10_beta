@@ -1,0 +1,11 @@
+---
+- name: Remove the Welcome Tour
+  hosts: rhel10
+  become: true
+  tasks:
+    - name: Perform Auto Login
+      ansible.builtin.template:
+        dest: /etc/gdm/custom.conf
+        src: templates/gdm_rhel10.j2
+        mode: '0644'
+
